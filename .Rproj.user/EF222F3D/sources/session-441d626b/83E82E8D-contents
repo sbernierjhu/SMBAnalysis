@@ -1,0 +1,126 @@
+getwd()
+#having installed palermerpenguins, load data set package
+library(palmerpenguins)
+data(package = "palmerpenguins")
+
+#explore data
+head(penguins)
+View(penguins)
+
+## ------- Visualize our data -------###
+hist(penguins$bill_length_mm)
+
+#visualize bill lenth as boxplot
+boxplot(x = penguins$bill_length_mm)
+
+##visualixe the relationship between bill length and body mass
+
+#scatterplot
+plot(x = penguins$body_mass_g, y = penguins$bill_length_mm)
+plot(x = penguins$body_mass_g, y = penguins$bill_length_mm,
+     col = penguins$species)
+unique(penguins$species)
+legend("bottomright",
+       legend = unique(penguins$species),
+       col = penguins$species)
+#alphabetical ordering
+plot(x = penguins$body_mass_g, y = penguins$bill_length_mm,
+     col = penguins$species,
+     xlab = "Body mass (g)",
+     ylab = "Bill length (mm)",
+     main = "Bill length and body mass",
+     pch = 16,
+     cex = 1.2)
+legend("bottomright",
+       legend = unique(penguins$species),
+       col = unique(penguins$species),
+       pch = 16,
+       cex = 1.2)
+
+#opacity
+library(scales)
+palette(alpha(c("black", "red", "green"),
+              alpha = .5))
+plot(x = penguins$body_mass_g, y = penguins$bill_length_mm,
+     col = penguins$species,
+     xlab = "Body mass (g)",
+     ylab = "Bill length (mm)",
+     main = "Bill length and body mass",
+     pch = 16,
+     cex = 1.2)
+legend("bottomright",
+       legend = unique(penguins$species),
+       col = unique(penguins$species),
+       pch = 16,
+       cex = 1.2)
+
+#custom color palette
+library(RColorBrewer)
+color_friendly_palette <- brewer.pal(n = 3, 
+                                     name = "Dark2")
+palette(alpha(color_friendly_palette,
+              alpha = .5))
+plot(x = penguins$body_mass_g, y = penguins$bill_length_mm,
+     col = penguins$species,
+     xlab = "Body mass (g)",
+     ylab = "Bill length (mm)",
+     main = "Bill length and body mass",
+     pch = 16,
+     cex = 1.2)
+legend("bottomright",
+       legend = unique(penguins$species),
+       col = unique(penguins$species),
+       pch = 16,
+       cex = 1.2)
+
+#remove extra border and scale
+color_friendly_palette <- brewer.pal(n = 3, 
+                                     name = "Dark2")
+palette(alpha(color_friendly_palette,
+              alpha = .5))
+plot(x = penguins$body_mass_g, y = penguins$bill_length_mm,
+     col = penguins$species,
+     xlab = "Body mass (g)",
+     ylab = "Bill length (mm)",
+     main = "Bill length and body mass",
+     pch = 16,
+     cex = 1.2,
+     bty = "l",
+     cex.axis = 1.2,
+     cex.lab = 1.2,
+     cex.main = 1.2)
+legend("bottomright",
+       legend = unique(penguins$species),
+       col = unique(penguins$species),
+       pch = 16,
+       cex = 1.2)
+
+#better title and export
+palette(alpha(color_friendly_palette,
+              alpha = .5))
+pdf("penguins_mass_comparison.pdf",
+    height = 5,
+    width = 8)
+plot(x = penguins$body_mass_g,
+     y = penguins$bill_length_mm,
+     col = penguins$species,
+     xlab = "Body Mass (g)",
+     ylab = "Bill Length (mm)",
+     pch = 16,
+     cex = 1.2,
+     bty = "l",
+     cex.axis = 1.2,
+     cex.lab = 1.2,
+     cex.main = 1.2)
+mtext("Bill length and body mass", side=3, adj=0, line=2, cex=1.4, font=2); 
+mtext("Measurements for Adelie, Chinstrap and Gentoo Penguins at Palmer Station LTER", 
+      side=3, adj=0, line=1, cex=.9, font=2); 
+grid()
+legend("bottomright", 
+       legend = unique(penguins$species),
+       col = unique(penguins$species),
+       pch = 16,
+       cex = 1.2,
+       bty = "n")
+#save to last file defined
+dev.off()

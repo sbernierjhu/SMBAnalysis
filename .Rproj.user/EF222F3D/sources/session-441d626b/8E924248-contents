@@ -1,0 +1,39 @@
+honey_1998 <- read.csv("Data/honeyraw_1998to2002.csv",
+                       header = FALSE,
+                       na.strings = c("", "NA"),
+                       stringsAsFactors = FALSE)
+str(honey_1998)
+head(honey_1998)
+tail(honey_1998)
+colnames(honey_1998)
+
+#rename column
+colnames(honey_1998) <- c("Year", "type", "state", "numcol", "yieldpercol","totalprod", "stocks", "priceperlb", "prodvalue")
+library(dplyr)
+
+#keep only columns with type d, where there's data from visual inspection
+honey_1998 <- filter(honey_1998, type =="d")
+
+#how many different values are in the state column?
+distinct(honey_1998, state)
+#48
+
+#more filtering to remove non-state abbreviations
+honey_1998 <- filter(honey_1998, nchar(honey_1998$state) == 2)
+
+honey_1998 <- mutate(honey_1998, year = case_when(
+  Year == 1 ~ "1998",
+  Year == 2 ~ "1999",
+  Year == 3 ~ "2000",
+  Year == 4 ~ "2001",
+  Year == 5 ~ "2002",
+  TRUE ~ "NA"
+))
+honey_1998 <- select(honey_1998, -c("Year", "type"))
+
+str(honey_1998)
+honey_1998[ , 2:7] <- as.numeric((unlist(honey_1998[ ,2:7])))
+
+honey_1998 <- mutate(honey_1998, numcol = numcol*1000, totalprod = totalprod*1000, stocks = stocks*1000, priceperlb = priceperlb/100, prodvalue = prodvalue*1000)
+
+write.csv(honey_1998, "Data/honey_1998to2002clean.csv", row.names = FALSE)
