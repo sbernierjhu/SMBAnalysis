@@ -5,6 +5,7 @@
 #' @param folder String describing folder containing the datafile
 #' @param filename String of datafile name, should end in .dat
 #' @param removenames Vector of strings to filter out of column names, i.e. words to search for in column names; these columns will not be loaded. Example: removenames = c("Comment","AC") will not load the Comment column nor the columns for AC Moment (emu), AC M. Std Err. (emu), AC Phase (deg), etc. etc.
+#' @param preerveempty Boolean for whether to preserve columns which contain NO data.
 #' @returns Dataframe containing selected columns in the .dat file
 OpenMPMSData <- function(folder,filename,removenames=c("default"),preserveempty=FALSE){
   fullfilepath <- paste(folder, filename, sep = "/")

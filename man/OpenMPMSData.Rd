@@ -17,6 +17,8 @@ OpenMPMSData(
 \item{filename}{String of datafile name, should end in .dat}
 
 \item{removenames}{Vector of strings to filter out of column names, i.e. words to search for in column names; these columns will not be loaded. Example: removenames = c("Comment","AC") will not load the Comment column nor the columns for AC Moment (emu), AC M. Std Err. (emu), AC Phase (deg), etc. etc.}
+
+\item{preerveempty}{Boolean for whether to preserve columns which contain NO data.}
 }
 \value{
 Dataframe containing selected columns in the .dat file

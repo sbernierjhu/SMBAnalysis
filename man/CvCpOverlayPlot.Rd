@@ -36,5 +36,5 @@ CvCpOverlayPlot(
 \item{perT3}{Boolean - when TRUE, units are given for C/T^3. When FALSE, units are given for C.}
 }
 \description{
-This function makes a pretty picture of heat capacity data with labelled axes.
+This function makes a pretty picture of experimental AND calculated heat capacity data overlaid with color-coded axes.
 }

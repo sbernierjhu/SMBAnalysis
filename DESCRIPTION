@@ -1,6 +1,6 @@
 Package: SMBanalysis
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Provides tools for analysis of common data types
 Version: 1.0.0
 Author: Shannon Bernier
 Maintainer: Shannon Bernier <sbernier@jhu.edu>
@@ -8,5 +8,5 @@ Description: Various SMB-developed McQueen lab data analysis functions
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: tidyverse, inflection, devtools
+Imports: tidyverse, inflection
 RoxygenNote: 7.3.2
