@@ -79,7 +79,7 @@ HCPlot <- function(dataframe,tempvals=Temperature,yvals=Cv,title="Heat capacity"
 
 #'Heat Capacity Plotter - overlaid Cp and Cv
 #'
-#'This function makes a pretty picture of heat capacity data with labelled axes.
+#'This function makes a pretty picture of experimental AND calculated heat capacity data overlaid with color-coded axes.
 #'
 #' @param CvTemps Column in a dataframe containing temperature data for Cv plot in Kelvin, as in dataframe$column
 #' @param CvVals Column in a dataframe containing Cv data in J/K, as in dataframe$column

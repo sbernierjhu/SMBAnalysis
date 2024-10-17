@@ -1,13 +1,12 @@
 Package: SMBanalysis
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 1.0.0
 Author: Shannon Bernier
 Maintainer: Shannon Bernier <sbernier@jhu.edu>
 Description: Various SMB-developed McQueen lab data analysis functions
-    Use four spaces when indenting paragraphs within the Description.
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Depends: tidyverse, inflection, devtools
+Imports: tidyverse, inflection, devtools
 RoxygenNote: 7.3.2

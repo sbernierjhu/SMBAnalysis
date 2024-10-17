@@ -10,3 +10,4 @@ Load via
 ``` R
 library(SMBAnalysis)
 ```
+Some of the functions in this package require `tidyverse` and `inflection`. You will also need `devtools` as stated above to install.
