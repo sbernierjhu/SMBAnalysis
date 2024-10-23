@@ -13,7 +13,7 @@ ManualSmear(plotmin, plotmax, plotstep, FWHM, data)
 
 \item{plotstep}{step size between minimum and maximum to calculate}
 
-\item{FWHM}{The full width at half maximum value for your Gaussian in units of your x-axis}
+\item{FWHM}{The full width at half maximum value for your Gaussians in units of your x-axis}
 
 \item{data}{list of x-axis values, typically a column in a dataframe}
 }
@@ -21,7 +21,7 @@ ManualSmear(plotmin, plotmax, plotstep, FWHM, data)
 Dataframe containing a column "x" that contains the sequence of x-axis values and a colummn "y" that contains the y-axis values computed from this sequence.
 }
 \description{
-This function takes peak positions represented as equally-weighted lines and smears them out to a phonon or photon spectrum closer to that expected from experiment. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
+This function takes peak positions represented as equally-weighted lines and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
 }
 \details{
 Note that the peaks are all assumed to have equal weight. For an unequally-weighted function, see ?ManualSmearWeight.
