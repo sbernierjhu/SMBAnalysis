@@ -7,8 +7,8 @@
 #' @param T single temperature in K
 #' @returns Constant volume heat capacity (Cv) in units of J/K
 PhononDOStoCv <- function(f, D, T){
-  #abbreviation for hbar/Kb*T
-  s <- (1.054571817*10^-34)/(1.380649*10^-23*T)
+  #abbreviation for h/Kb*T
+  s <- (6.62607015*10^-34)/(1.380649*10^-23*T)
   #sum all values of integrand
   C <- sum((D*(s*f)^2*exp(s*f))/((-1+exp(s*f))^2))
   #subtract off 1/2 first and last point
@@ -123,4 +123,113 @@ CvCpOverlayPlot <- function(CvTemps,CvVals,CvCol="#1D3732",CpTemps,CpVals,CpCol=
           panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank()) +
     annotation_logticks(sides="b")
+}
+
+#'Gaussian function in terms of FWHM
+#'
+#'This function represents a normalized Gaussian function (integral = 1) in terms of its center point and full width at half maximum (FWHM), instead of the traditional representation by standard deviation.
+#'
+#' @param x x-axis values
+#' @param center Center position (in units of your x-axis) for the Gaussian
+#' @param FWHM The full width at half maximum value for your Gaussian in units of your x-axis
+#' @examples
+#' GaussbyFWHM(1,0,10)
+#'
+#' x <- seq(-20,20,0.5)
+#' y <- GaussbyFWHM(x,0,10)
+#' plot(x,y)
+#' @returns The value of a Gaussian defined by input parameters at the input x value.
+GaussbyFWHM <- function(x,center,FWHM){(2*sqrt(log(2)/pi))*FWHM*exp((-4*log(2)*((x-center)^2))/(FWHM^2))}
+
+#'Spectrum smearing function
+#'
+#'This function takes peak positions represented as equally-weighted lines and smears them out to a phonon or photon spectrum closer to that expected from experiment. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
+#'
+#'Note that the peaks are all assumed to have equal weight. For an unequally-weighted function, see ?ManualSmearWeight.
+#' @param plotmin minimum value to calculate
+#' @param plotmax maximum value to calculate
+#' @param plotstep step size between minimum and maximum to calculate
+#' @param FWHM The full width at half maximum value for your Gaussian in units of your x-axis
+#' @param data list of x-axis values, typically a column in a dataframe
+#' @examples
+#' x <- c(30,45,67,88,89,90)
+#' y <- c(1,1,1,1,1,1)
+#' data <- ManualSmear(0,100,1,5,x)
+#' plot(data)
+#' points(x,y,col=2,pch=25)
+#' @returns Dataframe containing a column "x" that contains the sequence of x-axis values and a colummn "y" that contains the y-axis values computed from this sequence.
+ManualSmear <- function(plotmin,plotmax,plotstep,FWHM,data){
+  wvnmblist<- seq(plotmin,plotmax,plotstep)
+  storage <- data.frame(wvnmblist)
+  for (wv in data){
+    values<-vector()
+    for (val in wvnmblist){
+      values<-c(values,GaussbyFWHM(val,wv,FWHM))}
+    storage <- cbind(storage,values)}
+  storage <- subset(storage, select = -wvnmblist)
+  final <- data.frame(wvnmblist,rowSums(storage))
+  colnames(final) <- c("x","y")
+  return(final)}
+
+#'Spectrum smearing function (incl. peak weights)
+#'
+#'This function takes peak positions represented as lines with weights and smears them out to a phonon or photon spectrum closer to that expected from experiment. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
+#'
+#' @param plotmin minimum value to calculate
+#' @param plotmax maximum value to calculate
+#' @param plotstep step size between minimum and maximum to calculate
+#' @param FWHM The full width at half maximum value for your Gaussian in units of your x-axis
+#' @param data list of x-axis values, typically a column in a dataframe
+#' @param weights list of weightings (y-axis values) for each x-axis value, typically a column in a dataframe. Must have the same length as the x value list.
+#' @examples
+#' x <- c(30,45,67,88,89,90)
+#' y <- c(3,2,1,4,1,6)
+#' data <- ManualSmearWeights(0,100,1,5,x,y)
+#' plot(data)
+#' points(x,y,col=2,pch=25)
+#' @returns Dataframe containing a column "x" that contains the sequence of x-axis values and a colummn "y" that contains the y-axis values computed from this sequence.
+ManualSmearWeights <- function(plotmin,plotmax,plotstep,FWHM,data,weights){
+  wvnmblist<- seq(plotmin,plotmax,plotstep)
+  storage <- data.frame(wvnmblist)
+  i <- 1
+  for (wv in data){
+    values<-vector()
+    for (val in wvnmblist){
+      values<-c(values,GaussbyFWHM(val,wv,FWHM)*weights[i])}
+    storage <- cbind(storage,values)
+    i <- i+1}
+  storage <- subset(storage, select = -wvnmblist)
+  final <- data.frame(wvnmblist,rowSums(storage))
+  colnames(final) <- c("x","y")
+  return(final)}
+
+#'x^2 low-frequency approximator
+#'
+#'This function takes in (x,y) data and replaces all x data before some threshold value EstEnd with a parabolic curve connecting 0 to the original function's value at that point.
+#'
+#' @param EstEnd The point where you want the parabolic function to end (does not have to be a real value in the data, the function which match the closest point)
+#' @param stepsize step size of points between your end pt and the origin
+#' @param origdata a dataframe containing your original data
+#' @param xtitle a string matching the column name for the independent variable in your dataframe
+#' @examples
+#' x <- seq(0,100,0.5)
+#' y <- x^2*sin(x)
+#' data <- data.frame(x,y)
+#' newdata <- ApplyW2Approx(45,1,data,"x")
+#' plot(newdata$x,newdata$y) # see ?plot
+#' lines(data$x,data$y,col=2) # see ?lines
+#' @returns Dataframe containing a column "x" that contains the sequence of x-axis values and a colummn "y" that contains the y-axis values.
+ApplyW2Approx <- function(EstEnd,stepsize=1,origdata,xtitle="x"){
+  Y<-origdata[which.min(abs(origdata[[xtitle]] - EstEnd)), 2]
+  newdata<-origdata[origdata[[xtitle]] >= EstEnd,]
+  colnames(newdata) <- c(xtitle,"y")
+  wvnmblist<- seq(stepsize,newdata[[xtitle]][1]-stepsize,stepsize)
+  storage <- data.frame(wvnmblist)
+  values<-vector()
+  for (x in wvnmblist){
+    values<-c(values,(Y/(EstEnd^2))*(x^2))}
+  storage <- cbind(storage,values)
+  colnames(storage) <- c(xtitle,"y")
+  finaldata<-rbind(storage,newdata)
+  return(finaldata)
 }
