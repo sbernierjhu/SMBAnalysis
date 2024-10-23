@@ -145,7 +145,7 @@ GaussbyFWHM <- function(x,center,FWHM){(2*sqrt(log(2)/pi))*FWHM*exp((-4*log(2)*(
 #'
 #'This function takes peak positions represented as equally-weighted lines and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
 #'
-#'Note that the peaks are all assumed to have equal weight. For an unequally-weighted function, see ?ManualSmearWeight.
+#'Note that the peaks are all assumed to have equal weight. For an unequally-weighted function, see ?ManualSmearWeights.
 #' @param plotmin minimum value to calculate
 #' @param plotmax maximum value to calculate
 #' @param plotstep step size between minimum and maximum to calculate
