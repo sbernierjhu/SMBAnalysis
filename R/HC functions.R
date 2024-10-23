@@ -187,6 +187,10 @@ ManualSmear <- function(plotmin,plotmax,plotstep,FWHM,data){
 #' data <- ManualSmearWeights(0,100,1,5,x,y)
 #' plot(data)
 #' points(x,y,col=2,pch=25)
+#' # Compare to ?ManualSmear which equally weights all data
+#' newdata <- ManualSmear(0,100,1,5,x)
+#' plot(newdata)
+#' points(x,y,col=2,pch=25)
 #' @returns Dataframe containing a column "x" that contains the sequence of x-axis values and a colummn "y" that contains the y-axis values computed from this sequence.
 ManualSmearWeights <- function(plotmin,plotmax,plotstep,FWHM,data,weights){
   wvnmblist<- seq(plotmin,plotmax,plotstep)

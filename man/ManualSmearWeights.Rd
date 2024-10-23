@@ -31,4 +31,8 @@ y <- c(3,2,1,4,1,6)
 data <- ManualSmearWeights(0,100,1,5,x,y)
 plot(data)
 points(x,y,col=2,pch=25)
+# Compare to ?ManualSmear which equally weights all data
+newdata <- ManualSmear(0,100,1,5,x)
+plot(newdata)
+points(x,y,col=2,pch=25)
 }
