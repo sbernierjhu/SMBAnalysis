@@ -154,7 +154,7 @@ BasicCurieWeissfit <- function(Tstart=0,Tend=300,material="",dataframe,Tcolumn="
        y=chiinvdata,
        xlab = "Temperature (K)",
        ylab=expression(paste("1/", chi," (mol Oe/emu)")),
-       main = paste(material," True Curie-Weiss fit from",Tstart,"K to",Tend,"K (has R^2 of",signif(Rtest,4),")"),
+       main = paste(material," True Curie-Weiss fit from T =",Tstart,"K to",Tend,"K (has R^2 of",signif(Rtest,4),")"),
        pch=1,
        cex=0.75,
        col=color)
@@ -170,7 +170,7 @@ BasicCurieWeissfit <- function(Tstart=0,Tend=300,material="",dataframe,Tcolumn="
       heightdif <- heightmax-as.numeric(min(chiinvdata))
       dev.new(width=6,height=4.5,noRStudioGD = TRUE)
       plot(x = tempdata,y=chiinvdata, xlab = "Temperature (K)",ylab=expression(paste("1/", chi," (mol Oe/emu)")),
-           main = paste(material,"Curie-Weiss fit from",Tstart,"K to",Tend),
+           #main = paste(material,"Curie-Weiss fit from T =",Tstart,"K to",Tend),
            pch=1,cex=0.75,col=color)
       text(x=tempmin, y=heightmax-heightdif*.1, paste("C =",signif(CurieConst,4),"emu K/mol"),pos=4)
       text(x=tempmin, y=heightmax-heightdif*.2, expr(paste(theta["CW"]," = ",!!signif(CurieTemp,4),"K")),pos=4)
@@ -206,7 +206,7 @@ AdjustedCurieWeissfit <- function(Tstart=0,Tend=300,material="",dataframe,Tcolum
        y=chiinvdata,
        xlab = "Temperature (K)",
        ylab=expression(paste("1/", chi," (mol Oe/emu)")),
-       main = paste(material,"Adj. Curie-Weiss fit from",Tstart,"-",Tend,"K (raw data;",signif(Rtest,4),"R^2 )"),
+       main = paste(material,"Adj. Curie-Weiss fit from T =",Tstart,"-",Tend,"K (raw data;",signif(Rtest,4),"R^2 )"),
        pch=1,
        cex=0.75,
        col=color)
@@ -223,7 +223,7 @@ AdjustedCurieWeissfit <- function(Tstart=0,Tend=300,material="",dataframe,Tcolum
          y=1/(suscdata-ChiNaught),
          xlab = "Temperature (K)",
          ylab=expression(paste("1/", chi,"-",chi[0]," (mol Oe/emu)")),
-         main = paste(material,"Adj. Curie-Weiss fit from",Tstart,"-",Tend,"K"),
+         main = paste(material,"Adj. Curie-Weiss fit from T =",Tstart,"-",Tend,"K"),
          pch=1,
          cex=0.75,
          col=color)
@@ -239,7 +239,8 @@ AdjustedCurieWeissfit <- function(Tstart=0,Tend=300,material="",dataframe,Tcolum
     heightdif <- heightmax-as.numeric(min(1/(suscdata-ChiNaught)))
     dev.new(width=6,height=4.5,noRStudioGD = TRUE)
     plot(x = tempdata,y=1/(suscdata-ChiNaught), xlab = "Temperature (K)",ylab=expression(paste("1/", chi,"-",chi[0]," (mol Oe/emu)")),
-         main = paste(material,"Adj. Curie-Weiss fit from",Tstart,"-",Tend,"K"),pch=1,cex=0.75,col=color)
+         #main = paste(material,"Adj. Curie-Weiss fit from T = ",Tstart,"-",Tend,"K"),
+         pch=1,cex=0.75,col=color)
     abline(linearmodel,lwd=2.5,lty=2,col="black")
     text(tempmin, heightmax-heightdif*.1, expr(paste(chi[0]," = ",!!signif(ChiNaught,4)," mol Oe/emu")),pos=4)
     text(x=tempmin, y=heightmax-heightdif*.2, paste("C =",signif(CurieConst2,4),"emu K/mol"),pos=4)

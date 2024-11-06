@@ -90,22 +90,22 @@ HCPlot <- function(dataframe,tempvals=Temperature,yvals=Cv,title="Heat capacity"
 #' @param CpCoeff Scaling coefficient for the Cp data - guess and check until your data shows up with appropriate magnitude
 #' @param maintitle String to be main title of your plot.
 #' @param perT3 Boolean - when TRUE, units are given for C/T^3. When FALSE, units are given for C.
-CvCpOverlayPlot <- function(CvTemps,CvVals,CvCol="#1D3732",CpTemps,CpVals,CpCol="#397F72",CpCoeff=1,maintitle="Heat capacity overlay",perT3=TRUE){
+CvCpOverlayPlot <- function(CvTemps,CvVals,CvCol="#1D3732",CpTemps,CpVals,CpCol="#397F72",CpCoeff=1,xmax=300,maintitle="Heat capacity overlay",perT3=TRUE){
   ggplot() + geom_line(aes(CvTemps, CvVals),color=CvCol,size=2)+
     geom_point(aes(CpTemps, CpVals*CpCoeff),shape=1,size=3,color=CpCol) +
     scale_x_continuous(
       trans = "log10",
-      breaks = scales::log_breaks(n = 5)
+      breaks = scales::log_breaks(n = 5),
+      limits=c(NA,xmax)
     ) +
     scale_y_continuous(
-
       # Features of the first axis
       name = if(perT3==TRUE){expression(paste("Cv/", T^3," from DOS calculation (J/ ", K^4,")" ) )}else{expression(paste("Cv/", T^3," from DOS calculation (J/ ", K,")" ) )},
-
+      labels = function(x) format(x,digits=2),
       # Add a second axis and specify its features
-      sec.axis = sec_axis( transform=~.*1/CpCoeff,
+      sec.axis = sec_axis( transform=~.*1/CpCoeff,labels = function(x) format(x,digits=2),
                            name= if(perT3==TRUE){expression(paste(" Cp/", T^3,"from experiment (J/ ", K^4,")" ) )}else{expression(paste(" Cp/", T^3,"from experiment (J/ ", K,")" ) )})
-    ) +
+      ,limits=c(0,NA))+
     labs(title = maintitle,
          x="Temperature (K)") +
     theme_minimal() +
