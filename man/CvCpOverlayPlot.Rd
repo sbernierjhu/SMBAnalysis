@@ -12,6 +12,7 @@ CvCpOverlayPlot(
   CpVals,
   CpCol = "#397F72",
   CpCoeff = 1,
+  xmax = 300,
   maintitle = "Heat capacity overlay",
   perT3 = TRUE
 )

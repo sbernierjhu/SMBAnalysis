@@ -7,7 +7,9 @@
 #' @param removenames Vector of strings to filter out of column names, i.e. words to search for in column names; these columns will not be loaded. Example: removenames = c("Comment","AC") will not load the Comment column nor the columns for AC Moment (emu), AC M. Std Err. (emu), AC Phase (deg), etc. etc.
 #' @param preerveempty Boolean for whether to preserve columns which contain NO data.
 #' @returns Dataframe containing selected columns in the .dat file
-OpenMPMSData <- function(folder,filename,removenames=c("default"),preserveempty=FALSE){
+OpenMPMSData <- function(folder,filename,removenames,preserveempty=FALSE){
+  if(!is.vector(removenames))
+    stop("Please input your list of column names to remove as a vector c()")
   fullfilepath <- paste(folder, filename, sep = "/")
   originaldata <- read.delim(fullfilepath,
                              header = TRUE,
@@ -21,7 +23,7 @@ OpenMPMSData <- function(folder,filename,removenames=c("default"),preserveempty=
                          replacement = "")
   if(preserveempty == FALSE){
   moddata <- Filter(function(x)!all(is.na(x)), moddata)}
-  if(removenames == c("default")){
+  if(missing(removenames)){
   moddata <- moddata %>%
     select(-contains(c("code","Motor","Stat","Scan","Number","Action","Pressure","Chamber","Drift","VV","Range","Min","Max")))
   }else{
