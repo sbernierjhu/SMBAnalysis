@@ -143,9 +143,10 @@ GaussbyFWHM <- function(x,center,FWHM){(2*sqrt(log(2)/pi))*FWHM*exp((-4*log(2)*(
 
 #'Spectrum smearing function
 #'
-#'This function takes peak positions represented as equally-weighted lines and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
+#'This function takes peak positions represented as equally-weighted lines and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line.
 #'
-#'Note that the peaks are all assumed to have equal weight. For an unequally-weighted function, see ?ManualSmearWeights.
+#'Details on concept of smearing are provided here: https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/. Note that the peaks are all assumed to have equal weight. For an unequally-weighted function, see ?ManualSmearWeights.
+#'
 #' @param plotmin minimum value to calculate
 #' @param plotmax maximum value to calculate
 #' @param plotstep step size between minimum and maximum to calculate
@@ -173,7 +174,9 @@ ManualSmear <- function(plotmin,plotmax,plotstep,FWHM,data){
 
 #'Spectrum smearing function (incl. peak weights)
 #'
-#'This function takes peak positions represented as lines with weights and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
+#'This function takes peak positions represented as lines with weights and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line.
+#'
+#'Details on the concept of smearing are provided here: https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
 #'
 #' @param plotmin minimum value to calculate
 #' @param plotmax maximum value to calculate

@@ -1,7 +1,9 @@
 
 #'Cubic Deviation Metric calculator
 #'
-#'This function calculates the value of the cubicity metric described in xxx. The returned value will be zero if and only if the lattice parameters input correspond to a cubic unit cell. The returned value will be unitless and normalized such that it can be compared to values for other unit cells. The closer to zero, the "more cubic" your unit cell.
+#'This function calculates the value of the cubicity metric described in xxx.
+#'
+#'The returned value of the cubicity metric will be zero if and only if the lattice parameters input correspond to a cubic unit cell. The returned value will be unitless and normalized such that it can be compared to values for other unit cells. The closer to zero, the "more cubic" your unit cell.
 #'
 #' @param a a lattice parameter, typically in angstroms
 #' @param b b lattice parameter, typically in angstroms

@@ -11,7 +11,7 @@ curve.area(x, y, const.step = FALSE)
 
 \item{y}{list of dependent values}
 
-\item{const.step}{Boolean descriptor for whether (x,y) pairs are evenly spaced. If you do not know, set this to FALSE. In the case the pairs are evenly spaced, the function will use a slightly faster integration method, but the standard method works will work in both cases.}
+\item{const.step}{Boolean descriptor for whether (x,y) pairs are evenly spaced. If you do not know, set this to FALSE. In the case the pairs are evenly spaced, the function will use a slightly faster integration method, but the standard method will work in both cases.}
 }
 \value{
 Integral (aka area under the curve) of input data.

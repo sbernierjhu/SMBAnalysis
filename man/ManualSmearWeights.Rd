@@ -23,7 +23,10 @@ ManualSmearWeights(plotmin, plotmax, plotstep, FWHM, data, weights)
 Dataframe containing a column "x" that contains the sequence of x-axis values and a colummn "y" that contains the y-axis values computed from this sequence.
 }
 \description{
-This function takes peak positions represented as lines with weights and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line. A la https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
+This function takes peak positions represented as lines with weights and smears them out to a phonon or photon spectrum closer to that expected from experiment. This is accomplished by applying Gaussian functions to "smear out" each line.
+}
+\details{
+Details on the concept of smearing are provided here: https://mdommett.github.io/blog/interpolation-with-gaussian-broadening/
 }
 \examples{
 x <- c(30,45,67,88,89,90)

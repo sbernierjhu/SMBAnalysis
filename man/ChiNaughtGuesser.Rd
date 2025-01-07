@@ -39,5 +39,8 @@ ChiNaughtGuesser(
 The numeric value of the best chi0 acheived by the function. Printed text comments guide the user in using the function to refine this value.
 }
 \description{
-This function uses a binary search algorithm to guess the chi0 value required to make "almost linear" magnetic susceptibility data linear and thus enable Curie-Weiss analysis. See https://doi.org/10.1038/s42005-022-00853-y for a justification of this technique.
+This function uses a binary search algorithm to guess the chi0 value required to make "almost linear" magnetic susceptibility data linear and thus enable Curie-Weiss analysis.
+}
+\details{
+See https://doi.org/10.1038/s42005-022-00853-y for a justification of the binary search technique.
 }
