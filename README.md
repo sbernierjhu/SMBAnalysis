@@ -11,3 +11,11 @@ Load via
 library(SMBAnalysis)
 ```
 Some of the functions in this package require `tidyverse` and `inflection`. You will also need `devtools` as stated above to install.
+
+## Documentation
+Every function in this package has basic documentation available through the standard help section of R. To use, type '?PackageName' in the console. Example: 
+``` R
+?ManualSmearWeights
+```
+
+Additional documentation is in progress. Please [create an issue](https://github.com/sbernierjhu/SMBAnalysis/issues/new/choose) for specific requests.
