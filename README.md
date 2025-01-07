@@ -13,7 +13,7 @@ library(SMBAnalysis)
 Some of the functions in this package require `tidyverse` and `inflection`. You will also need `devtools` as stated above to install.
 
 ## Documentation
-Every function in this package has basic documentation available through the standard help section of R. To use, type '?PackageName' in the console. Example: 
+Every function in this package has basic documentation available through the standard help section of R. To use, type '?FunctionName' in the console. Example: 
 ``` R
 ?ManualSmearWeights
 ```
