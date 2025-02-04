@@ -25,11 +25,23 @@ OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Ra
                          pattern = "\\.",
                          replacement = "")
   fixed<-mean(moddata$DCFixedFit)
+  if (is.na(fixed)){
+    NonNAindex <- which(!is.na(moddata$DCFixedFit))
+    firstNonNA <- min(NonNAindex)
+    fixed<-mean(moddata$DCFixedFit[firstNonNA:length(moddata)])
+    print("Warning: Your first line of data may contain empty entries.")
+  }
   free<-mean(moddata$DCFreeFit)
-  if(fixed < 0.9){
+  if (is.na(free)){
+    NonNAindex <- which(!is.na(moddata$DCFixedFit))
+    firstNonNA <- min(NonNAindex)
+    free<-mean(moddata$DCFreeFit[firstNonNA:length(moddata)])
+    print("Warning: Your first line of data may contain empty entries.")
+  }
+  if(fixed <= 0.9){
     print(paste("Warning: The average of your DC Fixed Data GOF is",round(fixed,4),"It is recommended to review the raw voltage curves and the calculated free center position. See https://qdusa.com/siteDocs/appNotes/1500-018.pdf for more info."))
   }
-  if(free < 0.9){
+  if(free <= 0.9){
     print(paste("Warning: The average of your DC Free Data GOF is",round(free,4),"It is recommended to review the raw voltage curves especially if you see sudden jumps in magnetization data. See https://qdusa.com/siteDocs/appNotes/1500-018.pdf for more info."))
   }
   if(relativetime == TRUE){
@@ -58,9 +70,17 @@ ReadMPMSSampleMass <- function(folder,filename){
   fullfilepath <- paste(folder, filename, sep = "/")
   as.numeric(str_extract(read.table(fullfilepath, nrows=1, skip=27, sep = "="), "(?<=INFO,)[[:graph:]]+(?=,SAMPLE_MASS)" ))*10^-3}
 
-#'Magnetic susceptibility calculator
+#'DC [Molar/Mass] Magnetic susceptibility calculator
 #'
-#'This function reads columns of data for applied field strength and magnetization and calculates the molar magnetic susceptibility
+#'This function reads columns of data for applied field strength and magnetization and calculates the standard, molar, or mass magnetic susceptibility assuming M=Chi*H (linear relationship valid for low fields in DC magnetization measurements).
+#'
+#'If data were input in consistent units - either all cgs (emu for magnetization and Oe for field H) or all SI (A/m or J/Tm^3 for magnetization and A/m for field H) - then the units output are detailed below, and depend on which type of magnetic susceptibility you have chosen to calculate - standard, mass susceptibility, or molar susceptibility.
+#'
+#'In the event you want susceptibility, not molar/mass susceptibility, set both 'Mass' and 'MolarMass' to 1. The resulting output value will then be unitless (if using cgs units, the output may also be represented as emu/cm^3, which is actually still unitless).
+#'
+#'If you would like mass susceptibility, set 'MolarMass' to 1. The output units of this function for mass susceptibility are m^3/g (SI) and emu/g (cgs). 1 emu/g (cgs) = 4*pi*10^-3 m^3/kg (SI)
+#'
+#'If you would like molar susceptibility, set neither 'Mass' nor 'MolarMass' to 1. The output units of this function for molar susceptibility are m^3/mol (SI) and emu/mol (cgs). 1 emu/mol (cgs) = 4*pi*10^-6 m^3/mol (SI)
 #'
 #' @param dataframe Name of dataframe containing columns of data
 #' @param H String name of column in dataframe containing applied magnetic field data (take note of your units; this function does no conversion)
@@ -76,6 +96,38 @@ CalculateSusceptibility <- function(dataframe,H="MagneticFieldOe",M="DCMomentFre
   dataframe <- cbind(dataframe,susc,chiinv)}else{
     dataframe <- cbind(dataframe,susc)
   }
+  return(dataframe)
+}
+
+#'AC Magnetic susceptibility calculator
+#'
+#'This function reads columns of data for applied field strength and magnetization and calculates the molar magnetic susceptibility chi=dM/dH.
+#'
+#' @param dataframe Name of dataframe containing columns of data
+#' @param H String name of column in dataframe containing applied magnetic field data (take note of your units; this function does no conversion)
+#' @param M String name of column in dataframe containing sample magnetization data (take note of your units; this function does no conversion)
+#' @param MolarMass Numeric molar mass of sample (assumed in amu)
+#' @param Mass Numeric mass of sample (assumed in grams)
+#' @param CalcInv By default, the function also returns 1/susceptibility unless this parameter is set to 'FALSE'
+#' @returns Input dataframe with magnetic susceptibility ("Susc") and, optionally, inverse susceptibility ("Chiinv") columns attached at end
+CalculateACSusceptibility <- function(dataframe,H="MagneticFieldOe",M="DCMomentFreeCtremu",MolarMass=1,Mass=1,CalcInv=TRUE){
+  Field<-dataframe[[H]]
+  Mag<-dataframe[[M]]
+  if (length(Mag) != length(Field)) {
+    stop('M and H vectors must have equal length')
+  }
+  n <- length(Field)
+  susc <- vector(length = n)
+  susc[1] <- NA
+  for (i in 2:n) {
+    susc[i] <- (Mag[i] - Mag[i-1]) / (Field[i] - Field[i-1])
+  }
+  susc<-susc*(MolarMass/Mass)
+  if (CalcInv == TRUE){
+    chiinv <- 1/susc
+    dataframe <- cbind(dataframe,susc,chiinv)}else{
+      dataframe <- cbind(dataframe,susc)
+    }
   return(dataframe)
 }
 

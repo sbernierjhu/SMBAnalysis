@@ -2,7 +2,7 @@
 % Please edit documentation in R/MPMSfunctions.R
 \name{CalculateSusceptibility}
 \alias{CalculateSusceptibility}
-\title{Magnetic susceptibility calculator}
+\title{DC [Molar/Mass] Magnetic susceptibility calculator}
 \usage{
 CalculateSusceptibility(
   dataframe,
@@ -30,5 +30,14 @@ CalculateSusceptibility(
 Input dataframe with magnetic susceptibility ("Susc") and, optionally, inverse susceptibility ("Chiinv") columns attached at end
 }
 \description{
-This function reads columns of data for applied field strength and magnetization and calculates the molar magnetic susceptibility
+This function reads columns of data for applied field strength and magnetization and calculates the standard, molar, or mass magnetic susceptibility assuming M=Chi*H (linear relationship valid for low fields in DC magnetization measurements).
+}
+\details{
+If data were input in consistent units - either all cgs (emu for magnetization and Oe for field H) or all SI (A/m or J/Tm^3 for magnetization and A/m for field H) - then the units output are detailed below, and depend on which type of magnetic susceptibility you have chosen to calculate - standard, mass susceptibility, or molar susceptibility.
+
+In the event you want susceptibility, not molar/mass susceptibility, set both 'Mass' and 'MolarMass' to 1. The resulting output value will then be unitless (if using cgs units, the output may also be represented as emu/cm^3, which is actually still unitless).
+
+If you would like mass susceptibility, set 'MolarMass' to 1. The output units of this function for mass susceptibility are m^3/g (SI) and emu/g (cgs). 1 emu/g (cgs) = 4*pi*10^-3 m^3/kg (SI)
+
+If you would like molar susceptibility, set neither 'Mass' nor 'MolarMass' to 1. The output units of this function for molar susceptibility are m^3/mol (SI) and emu/mol (cgs). 1 emu/mol (cgs) = 4*pi*10^-6 m^3/mol (SI)
 }
