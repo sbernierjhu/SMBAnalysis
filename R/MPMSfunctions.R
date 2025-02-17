@@ -26,17 +26,13 @@ OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Ra
                          replacement = "")
   fixed<-mean(moddata$DCFixedFit)
   if (is.na(fixed)){
-    NonNAindex <- which(!is.na(moddata$DCFixedFit))
-    firstNonNA <- min(NonNAindex)
-    fixed<-mean(moddata$DCFixedFit[firstNonNA:length(moddata)])
-    print("Warning: Your first line of data may contain empty entries.")
+    fixed<-mean(moddata$DCFixedFit,na.rm = TRUE)
+    print("Warning: Your fixed center data contains empty rows.")
   }
   free<-mean(moddata$DCFreeFit)
   if (is.na(free)){
-    NonNAindex <- which(!is.na(moddata$DCFixedFit))
-    firstNonNA <- min(NonNAindex)
-    free<-mean(moddata$DCFreeFit[firstNonNA:length(moddata)])
-    print("Warning: Your first line of data may contain empty entries.")
+    free<-mean(moddata$DCFreeFit,na.rm = TRUE)
+    print("Warning: Your free center data contains empty rows.")
   }
   if(fixed <= 0.9){
     print(paste("Warning: The average of your DC Fixed Data GOF is",round(fixed,4),"It is recommended to review the raw voltage curves and the calculated free center position. See https://qdusa.com/siteDocs/appNotes/1500-018.pdf for more info."))
