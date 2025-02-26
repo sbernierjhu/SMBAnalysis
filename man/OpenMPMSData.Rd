@@ -8,7 +8,8 @@ OpenMPMSData(
   folder = getwd(),
   filename = NULL,
   removenames = c("Action", "Range", "Min", "Max", "Pressure", "Number", "code", "Motor",
-    "Stat", "Average", "Scan", "Chamber", "Drift", "Position", "Fit"),
+    "Stat", "Average", "Scan", "Chamber", "Drift", "Position", "Fit", "Phase", "ACX",
+    "Averaging", "Cycles", "Type", "Trim", "Signal"),
   preserveempty = FALSE,
   relativetime = FALSE
 )
