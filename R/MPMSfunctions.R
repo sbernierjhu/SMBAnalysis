@@ -10,7 +10,7 @@
 #' @param preerveempty Boolean for whether to preserve columns which contain NO data.
 #' @param relativetime Boolean for whether to rescale the time stamp to begin at 0 and count from there, creating a new column called 'AbsTimeSec'. Default is to instead report the MPMS measure of absolute time. To remove the old column of absolute time, add "Stamp" or similar to the vector in 'removenames'.
 #' @returns Dataframe containing selected columns in the .dat file.
-OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Range","Min","Max","Pressure","Number","code","Motor","Stat","Average","Scan","Chamber","Drift","Position","Fit"),preserveempty=FALSE,relativetime=FALSE){
+OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Range","Min","Max","Pressure","Number","code","Motor","Stat","Average","Scan","Chamber","Drift","Position","Fit","Phase","ACX","Averaging","Cycles","Type","Trim","Signal"),preserveempty=FALSE,relativetime=FALSE){
   if(is.null(filename))
     stop("Please input your filename")
   fullfilepath <- paste(folder, filename, sep = "/")
