@@ -24,6 +24,7 @@ OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Ra
   names(moddata) <- gsub(x = names(moddata),
                          pattern = "\\.",
                          replacement = "")
+  if(!all(is.na(moddata$DCFixedFit))){
   fixed<-mean(moddata$DCFixedFit)
   if (is.na(fixed)){
     fixed<-mean(moddata$DCFixedFit,na.rm = TRUE)
@@ -39,7 +40,7 @@ OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Ra
   }
   if(free <= 0.9){
     print(paste("Warning: The average of your DC Free Data GOF is",round(free,4),"It is recommended to review the raw voltage curves especially if you see sudden jumps in magnetization data. See https://qdusa.com/siteDocs/appNotes/1500-018.pdf for more info."))
-  }
+  }}
   if(relativetime == TRUE){
     AbsTimesec<-moddata$TimeStampsec-moddata$TimeStampsec[1]
     moddata<-cbind(moddata,AbsTimesec)
