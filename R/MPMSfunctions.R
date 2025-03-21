@@ -14,12 +14,22 @@ OpenMPMSData <- function(folder=getwd(),filename=NULL,removenames=c("Action","Ra
   if(is.null(filename))
     stop("Please input your filename")
   fullfilepath <- paste(folder, filename, sep = "/")
+  str_extract(read.table(fullfilepath, nrows=1, skip=27, sep = "="), "(?<=INFO,)[[:graph:]]+(?=,SAMPLE_HOLDER)" )
+  if(!grepl("SAMPLE_HOLDER_DETAIL", read.table(fullfilepath, nrows=1, skip=33, sep = "="))){
   originaldata <- read.delim(fullfilepath,
                              header = TRUE,
                              sep = ",",
                              na.strings = "",
                              stringsAsFactors = TRUE,
-                             skip = 44)
+                             skip = 43)}
+  else{originaldata <- read.delim(fullfilepath,
+                                  header = TRUE,
+                                  sep = ",",
+                                  na.strings = "",
+                                  stringsAsFactors = TRUE,
+                                  skip = 44)
+
+                             }
   moddata <- originaldata
   names(moddata) <- gsub(x = names(moddata),
                          pattern = "\\.",
