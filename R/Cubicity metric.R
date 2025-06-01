@@ -13,7 +13,7 @@
 #' @param ga gamma lattice parameter (angle between a and b sides) in degrees
 #' @param sigfigs Number of sig figs to round answer to. Default is 4.
 #' @returns Value of cubicity metric
-CubicityMetric <- function(a,b,c,al,be,ga,sigfigs=4) signif(abs((a/sqrt(a**2+b**2-2*a*b*cos(ga*(pi/180))))-1/sqrt(2))+abs((b/sqrt(a**2+b**2-2*a*b*cos(ga*(pi/180))))-1/sqrt(2))+abs((c/sqrt(a**2+c**2-2*a*c*cos(be*(pi/180))))-1/sqrt(2))+abs((a/sqrt(a**2+c**2-2*a*c*cos(be*(pi/180))))-1/sqrt(2))+abs((b/sqrt(b**2+c**2-2*b*c*cos(al*(pi/180))))-1/sqrt(2))+abs((c/sqrt(b**2+c**2-2*b*c*cos(al)*(pi/180)))-1/sqrt(2)),sigfigs)
+CubicityMetric <- function(a,b,c,al,be,ga,sigfigs=4) signif(abs((a/sqrt(a**2+b**2-2*a*b*cos(ga*(pi/180))))-1/sqrt(2))+abs((b/sqrt(a**2+b**2-2*a*b*cos(ga*(pi/180))))-1/sqrt(2))+abs((c/sqrt(a**2+c**2-2*a*c*cos(be*(pi/180))))-1/sqrt(2))+abs((a/sqrt(a**2+c**2-2*a*c*cos(be*(pi/180))))-1/sqrt(2))+abs((b/sqrt(b**2+c**2-2*b*c*cos(al*(pi/180))))-1/sqrt(2))+abs((c/sqrt(b**2+c**2-2*b*c*cos(al*(pi/180))))-1/sqrt(2)),sigfigs)
 
 #'Unit cell volume calculator
 #'
