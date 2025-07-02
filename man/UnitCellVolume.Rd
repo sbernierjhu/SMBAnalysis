@@ -27,3 +27,11 @@ Volume of the unit cell in (units of a/b/c)^3
 \description{
 This function calculates the volume of the unit cell
 }
+\examples{
+library(tidyverse)
+UnitCellVolume(10,10,10,90,90,90,decimals=3)
+UnitCellVolume(10,8,9,63,70,63,decimals=3)
+df <- data.frame(a=c(10,10),b=c(10,8),c=c(10,9),al=c(90,63),be=c(90,70),ga=c(90,63))
+df <- df \%>\% mutate(Volume=UnitCellVolume(a,b,c,al,be,ga,4))
+head(df)
+}

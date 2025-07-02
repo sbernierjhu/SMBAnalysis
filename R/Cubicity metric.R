@@ -28,6 +28,13 @@ CubicityMetric <- function(a,b,c,al,be,ga,sigfigs=4) signif(abs((a/sqrt(a**2+b**
 #' @param be beta lattice parameter (angle between a and c sides) in degrees
 #' @param ga gamma lattice parameter (angle between a and b sides) in degrees
 #' @param decimals Number of decimal places to round answer to. Default is 4.
+#' @examples
+#' library(tidyverse)
+#' CubicDeviationMetric(10,10,10,90,90,90,decimals=3)
+#' CubicDeviationMetric(10,8,9,63,70,63,decimals=3)
+#' df <- data.frame(a=c(10,10),b=c(10,8),c=c(10,9),al=c(90,63),be=c(90,70),ga=c(90,63))
+#' df <- df %>% mutate(CDM=CubicDeviationMetric(a,b,c,al,be,ga,4))
+#' head(df)
 #' @returns Value of cubicity metric
 CubicDeviationMetric <- function(a,b,c,al,be,ga,decimals=4)
   {
@@ -45,5 +52,12 @@ CubicDeviationMetric <- function(a,b,c,al,be,ga,decimals=4)
 #' @param be beta lattice parameter (angle between a and c sides) in degrees
 #' @param ga gamma lattice parameter (angle between a and b sides) in degrees
 #' @param sigfigs Number of sig figs to round answer to. Default is 4.
+#' @examples
+#' library(tidyverse)
+#' UnitCellVolume(10,10,10,90,90,90,decimals=3)
+#' UnitCellVolume(10,8,9,63,70,63,decimals=3)
+#' df <- data.frame(a=c(10,10),b=c(10,8),c=c(10,9),al=c(90,63),be=c(90,70),ga=c(90,63))
+#' df <- df %>% mutate(Volume=UnitCellVolume(a,b,c,al,be,ga,4))
+#' head(df)
 #' @returns Volume of the unit cell in (units of a/b/c)^3
 UnitCellVolume <- function(a,b,c,al,be,ga,sigfigs=4) signif(a*b*c*sqrt(1+2*(cos(al*(pi/180))*cos(be*(pi/180))*cos(ga*(pi/180)))-(cos(al*(pi/180))^2-cos(be*(pi/180))^2-cos(ga*(pi/180))^2)),sigfigs)
