@@ -28,5 +28,5 @@ Value of cubicity metric
 This function calculates the value of the cubicity metric described in http://dx.doi.org/10.1038/s41535-025-00782-3. This function is deprecated but preserved for the purposes of interpreting the data in that paper.
 }
 \details{
-The returned value of the cubicity metric will be zero if and only if the lattice parameters input correspond to a cubic unit cell. The returned value will be unitless and normalized such that it can be compared to values for other unit cells, with a possible maximum of 1. The closer to zero, the "more cubic" your unit cell; the closer to one, the "less cubic". It is important to note that multiple unit cells may produce the same metric value.
+The returned value of the cubicity metric will be zero if and only if the lattice parameters input correspond to a cubic unit cell. The returned value will be unitless and normalized such that it can be compared to values for other unit cells. The closer to zero, the "more cubic" your unit cell. It is important to note that multiple unit cells may produce the same metric value.
 }
