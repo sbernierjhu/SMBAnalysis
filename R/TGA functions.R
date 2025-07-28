@@ -162,9 +162,11 @@ ConvertToMassPercent <- function(dataframe,column="Weight (mg)",outputname="Rela
 #' @param colorpalette Palette of colors to be used for the first, second, and third lines in the plot. See ?palette for examples. Your own palette can be defined using c("color1","color2","color3")
 #' @param x  String name of column in the dataframe containing the independent variable.
 #' @param y Vector of strings containing the names of columns to be used as the 3 dependent variables.
+#' @param width width of output image
+#' @param height height of output image
 TGA3AxisPlot <- function(dataframe,title="Placeholder title",colorpalette="Dark2",x="Time (min)",
-                         y=list("Temperature (°C)","Weight (mg)","Heat Flow (mW)")){
-  dev.new(width=8,height=6,noRStudioGD = TRUE)
+                         y=list("Temperature (°C)","Weight (mg)","Heat Flow (mW)"),width=8,height=6){
+  dev.new(width=width,height=height,noRStudioGD = TRUE)
   palette(colorpalette);
   y1 <- y[[1]]
   y2 <- y[[2]]
@@ -198,9 +200,11 @@ TGA3AxisPlot <- function(dataframe,title="Placeholder title",colorpalette="Dark2
 #' @param colorpalette Palette of colors to be used for the first and second lines in the plot. See ?palette for examples. Your own palette can be defined using c("color1","color2")
 #' @param x  String name of column in the dataframe containing the independent variable.
 #' @param y Vector of strings containing the names of columns to be used as the 2 dependent variables.
+#' #' @param width width of output image
+#' @param height height of output image
 TGA2AxisPlot <- function(dataframe,title="Placeholder title",colorpalette="Dark2",x="Time (min)",
-                         y=list("Temperature (°C)","Weight (mg)")){
-  dev.new(width=8,height=6,noRStudioGD = TRUE)
+                         y=list("Temperature (°C)","Weight (mg)"),width=8,height=6){
+  dev.new(width=width,height=height,noRStudioGD = TRUE)
   palette(colorpalette);
   y1 <- y[[1]]
   y2 <- y[[2]]

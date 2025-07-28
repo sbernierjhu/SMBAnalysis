@@ -9,7 +9,9 @@ TGA3AxisPlot(
   title = "Placeholder title",
   colorpalette = "Dark2",
   x = "Time (min)",
-  y = list("Temperature (°C)", "Weight (mg)", "Heat Flow (mW)")
+  y = list("Temperature (°C)", "Weight (mg)", "Heat Flow (mW)"),
+  width = 4,
+  height = 3
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ TGA3AxisPlot(
 \item{x}{String name of column in the dataframe containing the independent variable.}
 
 \item{y}{Vector of strings containing the names of columns to be used as the 3 dependent variables.}
+
+\item{width}{width of output image}
+
+\item{height}{height of output image}
 }
 \description{
 This function generates a plot with three scatterplots of data sharing an independent variable. These plots are commonly made by TA Universal Analysis but may be more generally applicable.

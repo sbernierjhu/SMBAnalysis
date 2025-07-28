@@ -9,7 +9,9 @@ TGA2AxisPlot(
   title = "Placeholder title",
   colorpalette = "Dark2",
   x = "Time (min)",
-  y = list("Temperature (°C)", "Weight (mg)")
+  y = list("Temperature (°C)", "Weight (mg)"),
+  width = 4,
+  height = 3
 )
 }
 \arguments{
@@ -21,7 +23,10 @@ TGA2AxisPlot(
 
 \item{x}{String name of column in the dataframe containing the independent variable.}
 
-\item{y}{Vector of strings containing the names of columns to be used as the 2 dependent variables.}
+\item{y}{Vector of strings containing the names of columns to be used as the 2 dependent variables.
+#' @param width width of output image}
+
+\item{height}{height of output image}
 }
 \description{
 This function generates a plot with two scatterplots of data sharing an independent variable. These plots are commonly made by TA Universal Analysis but may be more generally applicable.
